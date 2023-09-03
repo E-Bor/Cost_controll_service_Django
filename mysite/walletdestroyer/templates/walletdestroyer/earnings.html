@@ -1,0 +1,18 @@
+{% extends "walletdestroyer/base.html" %}
+{% block forma %}
+<form class="row g-1">
+    <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Дата</label>
+        <input name="date" type="date" class="form-control" id="inputEmail4" placeholder="Год-месяц-день">
+
+    </div>
+
+    <div class="col-md-5">
+        <label for="inputZip" class="form-label">Заработок</label>
+        <input name="cost" type="text" class="form-control" id="inputZip">
+    </div>
+    <div class="row g-1">
+        <button name="earningsButton" type="submit" class="btn btn-primary">Добавить запись</button>
+    </div>
+</form>
+{% endblock %}
