@@ -1,6 +1,7 @@
 {% extends "walletdestroyer/base.html" %}
 {% block forma %}
-<form class="row g-1">
+<form class="row g-1" method="post">
+    {% csrf_token %}
     <div class="col-md-6">
         <label for="{{ form.date.id_for_label }}" class="form-label">{{ form.date.label }}</label>
         <input name="date" type="date" class="form-control" id="inputEmail4" placeholder="Год-месяц-день">
@@ -23,7 +24,7 @@
         <input name="cost" type="text" class="form-control" id="inputZip">
     </div>
     <div class="row g-1">
-        <button name="button" class="btn btn-primary">Добавить запись</button>
+        <button name="SpendingButton" type="submit" class="btn btn-primary">Добавить запись</button>
     </div>
 </form>
 {% endblock %}

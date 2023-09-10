@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.urls import resolve
 from django.views import View
 
+from .db_writer import DbManager, writer
 from .forms import EarningsForm, SpendingForm
 
 
@@ -34,6 +35,10 @@ class EarningsView(View):
 
     def post(self, request):
         print(request.POST)
+        data = {'money': 4, 'description': 'qewr'}
+        writer.create(data)
+        a = writer.get_latest()
+        print(a)
         return render(request, 'walletdestroyer/earnings.html', context=self.params)
 
     # @property
