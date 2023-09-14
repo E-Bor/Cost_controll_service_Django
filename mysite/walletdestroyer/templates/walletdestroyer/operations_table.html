@@ -1,23 +1,23 @@
-                    <h2>Последние траты</h2>
-                    <div>
-                        <table class="table">
-                            <thead>
-                              <tr>
-                                <th scope="col">$</th>
-                                <th scope="col">Категория</th>
-                                <th scope="col">Дата</th>
+<h2>{{ table_name }}</h2>
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">$</th>
+            <th scope="col">Категория</th>
+            <th scope="col">Дата</th>
 
-                              </tr>
-                            </thead>
-                            <tbody>
+        </tr>
+        </thead>
+        <tbody>
 
-                            {% for operation in operations %}
-                            <tr>
-                                <td>{{ operation.cost }}</td>
-                                <td>{{ operation.category }}</td>
-                                <td>{{ operation.date }}</td>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                          </table>
-                    </div>
+        {% for operation in operations %}
+        <tr>
+            <td>{{ operation.cost }}</td>
+            <td>{{ operation.category.name }}</td>
+            <td>{{ operation.time_create }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

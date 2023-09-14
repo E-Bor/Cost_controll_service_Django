@@ -1,9 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import resolve
 from django.views import View
 
-from .db_writer import DbManager, writer
+from .models import EarningModel, SpendingModel, SpendingCategoriesModel
+from .db_writer import DbManager
 from .forms import EarningsForm, SpendingForm
 
 
@@ -15,56 +16,47 @@ from .forms import EarningsForm, SpendingForm
 
 class EarningsView(View):
 
-    params = {
-        'operations': [
-            {'cost': 123, 'category': 'odezhda', 'date': '14-10-2023'},
-            {'cost': 123, 'category': 'odezhda', 'date': '14-10-2023'},
-            {'cost': 123, 'category': 'odezhda', 'date': '14-10-2023'},
-            {'cost': 123, 'category': 'odezhda', 'date': '14-10-2023'},
-        ],
-        'form': EarningsForm()
-    }
+    Writer = DbManager(EarningModel)
 
     def get(self, request):
-
-        a = request.path_info
-        b = resolve(a)
-
-        # return render(request, 'walletdestroyer/base.html')
-        return render(request, 'walletdestroyer/earnings.html', context=self.params)
+        params = {
+            'operations': self.Writer.get_latest(view_depth=5),
+            'form': EarningsForm(),
+            'table_name': EarningModel._meta.verbose_name
+        }
+        return render(request, 'walletdestroyer/earnings.html', context=params)
 
     def post(self, request):
-        print(request.POST)
-        data = {'money': 4, 'description': 'qewr'}
-        writer.create(data)
-        a = writer.get_latest()
-        print(a)
-        return render(request, 'walletdestroyer/earnings.html', context=self.params)
 
-    # @property
-    # def earning_form(self):
-    #     return EarningsForm()
+        self.Writer.create(request.POST)
+
+        return redirect('earnings', permanent=True)
 
 
 class SpendingView(View):
+    Writer = DbManager(SpendingModel)
 
-    # TODO: refactor to dataclasses
-
-    params = {
-        'operations': [
-            {'cost': 123, 'category': 'odezhda', 'date': '14-10-2023'},
-            {'cost': 123, 'category': 'odezhda', 'date': '14-10-2023'},
-            {'cost': 123, 'category': 'odezhda', 'date': '14-10-2023'},
-            {'cost': 123, 'category': 'odezhda', 'date': '14-10-2023'},
-        ],
-        'form': SpendingForm(),
-        'categories': ['cat1', 'cat2', 'cat3', 'cat4']
-    }
+    SPENDING_CATEGORIES = SpendingCategoriesModel.objects.all()
 
     def get(self, request):
-         return render(request, 'walletdestroyer/spending.html', context=self.params)
+
+        params = {
+            'operations': self.Writer.get_latest(view_depth=5),
+            'form': SpendingForm(),
+            'table_name': SpendingModel._meta.verbose_name,
+            'categories': self.SPENDING_CATEGORIES
+        }
+        return render(request, 'walletdestroyer/spending.html', context=params)
 
     def post(self, request):
-        print(request.POST)
-        return render(request, 'walletdestroyer/spending.html', context=self.params)
+        data = request.POST.copy()
+        if data.get('category') == 'Выберите':
+            data['category'] = self.SPENDING_CATEGORIES[0]
+        for category in self.SPENDING_CATEGORIES:
+            if data.get('category') == category.name:
+                data['category'] = category
+
+        self.Writer.create(data)
+
+        return redirect('spending', permanent=True)
 
