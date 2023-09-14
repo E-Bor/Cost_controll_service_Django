@@ -29,14 +29,7 @@
                     {% include "walletdestroyer/navbar.html" %}
 
                     </div>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">Имя профиля</a>
-                        <ul class="dropdown-menu position-absolute">
-                            <li><a class="dropdown-item" href="#">Импорт</a></li>
-                            <li><a class="dropdown-item" href="#">Экспорт</a></li>
-                            <li><a class="dropdown-item" href="services/auth/auth.html">Вход</a></li>
-                            <li><a class="dropdown-item" href="services/registration/reg.html">Регистрация</a></li>
+                            {% include "walletdestroyer/auth_status_template.html" %}
                         </ul>
                     </div>
                 </div>

@@ -10,6 +10,7 @@ class RecordTypes(enum.Enum):
     earnings: str = 'earnings'
     spending: str = 'spending'
 
+
 class DbManager:
 
     def __init__(self, model):
