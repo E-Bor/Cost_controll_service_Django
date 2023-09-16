@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'walletdestroyer.apps.WalletdestroyerConfig'
+    'debug_toolbar',  # for apps optimisation
+    'walletdestroyer.apps.WalletdestroyerConfig',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # for apps optimisation
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -125,3 +127,15 @@ STATICFILES_DIRS = []
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# for apps optimisation
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+CACHES = {
+		  'default': {
+			  'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+			  'LOCATION': os.path.join(BASE_DIR, 'walletdestroyer_cache')
+		  }
+}

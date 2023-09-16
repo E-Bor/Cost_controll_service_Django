@@ -1,11 +1,16 @@
 import datetime
 
+from django.core.cache import cache
 from django.db import models
 
 # Create your models here.
 
 class SpendingCategoriesModel(models.Model):
     name = models.CharField(max_length=30)
+
+    @staticmethod
+    def get_all_categories():
+        return SpendingCategoriesModel.objects.all().values_list('name', 'name')
 
 class SpendingModel(models.Model):
     cost = models.PositiveIntegerField()
@@ -20,7 +25,7 @@ class SpendingModel(models.Model):
 
     class Meta:
         verbose_name = 'Траты'
-        ordering = ['time_create']
+        ordering = ['-time_create']
 
 
 class EarningModel(models.Model):
@@ -29,4 +34,4 @@ class EarningModel(models.Model):
 
     class Meta:
         verbose_name = 'Заработок'
-        ordering = ['time_create']
+        ordering = ['-time_create']

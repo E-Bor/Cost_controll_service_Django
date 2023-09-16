@@ -25,7 +25,6 @@ class StartView(View):
         return HttpResponse('startpage')
 
 
-
 class EarningsView(LoginRequiredMixin, View):
     login_url = reverse_lazy('auth')
 
@@ -34,7 +33,7 @@ class EarningsView(LoginRequiredMixin, View):
     def get(self, request):
         params = {
             'operations': self.Writer.get_latest(view_depth=5),
-            'form': EarningsForm(),
+            'form': EarningsForm,
             'table_name': EarningModel._meta.verbose_name,
             'is_auth': request.user.is_authenticated
         }
@@ -59,15 +58,12 @@ class SpendingView(LoginRequiredMixin, View):
             'operations': self.Writer.get_latest(view_depth=5),
             'form': SpendingForm(),
             'table_name': SpendingModel._meta.verbose_name,
-            'categories': self.SPENDING_CATEGORIES,
             'is_auth': request.user.is_authenticated
         }
         return render(request, 'walletdestroyer/spending.html', context=params)
 
     def post(self, request):
         data = request.POST.copy()
-        if data.get('category') == 'Выберите':
-            data['category'] = self.SPENDING_CATEGORIES[0]
         for category in self.SPENDING_CATEGORIES:
             if data.get('category') == category.name:
                 data['category'] = category

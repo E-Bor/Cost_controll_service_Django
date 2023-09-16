@@ -3,14 +3,13 @@
 <form class="row g-1" method="post" action="{% url 'earnings' %}">
     {% csrf_token %}
     <div class="col-md-6">
-        <label for="{{ form.date.id_for_label }}" class="form-label">{{ form.date.label }}</label>
-        <input name="time_create" type="date" class="form-control" id="inputEmail4" placeholder="Год-месяц-день">
-
+        <label for="{{ form.time_create.id_for_label }}" class="form-label">{{ form.time_create.label }}</label>
+            {{ form.time_create }}
     </div>
 
     <div class="col-md-5">
         <label for="{{ form.cost.id_for_label }}" class="form-label">{{ form.cost.label }}</label>
-        <input name="cost" type="text" class="form-control" id="inputZip">
+        {{ form.cost }}
     </div>
     <div class="row g-1">
         <button name="earningsButton" type="submit" class="btn btn-primary">Добавить запись</button>

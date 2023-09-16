@@ -3,25 +3,20 @@
 <form class="row g-1" method="post">
     {% csrf_token %}
     <div class="col-md-6">
-        <label for="{{ form.date.id_for_label }}" class="form-label">{{ form.date.label }}</label>
-        <input name="time_create" type="date" class="form-control" id="inputEmail4" placeholder="Год-месяц-день" required>
-
+        <label for="{{ form.time_create.id_for_label }}" class="form-label">{{ form.time_create.label }}</label>
+            {{ form.time_create }}
     </div>
     <div class="mb-3">
         <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
-        <textarea name="description" class="form-control" id="exampleFormControlTextarea1"
-                  placeholder="Укажите на что вы потратили деньги" rows="3"></textarea>
+        {{ form.description }}
     </div>
     <div class="col-md-5">
         <label for="{{ form.categories.id_for_label }}" class="form-label">{{ form.category.label }}</label>
-        <select name="category" id="inputState" class="form-select">
-            <option selected>Выберите</option>
-            {% for category in categories %}<option>{{ category.type_name }}</option>{% endfor %}
-        </select>
+        {{ form.category }}
     </div>
     <div class="col-md-3">
         <label for="{{ form.cost.id_for_label }}" class="form-label">{{ form.cost.label }}</label>
-        <input name="cost" type="text" class="form-control" id="inputZip" required>
+        {{ form.cost }}
     </div>
     <div class="row g-1">
         <button name="SpendingButton" type="submit" class="btn btn-primary">Добавить запись</button>

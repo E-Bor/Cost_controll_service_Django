@@ -24,11 +24,12 @@ class DbManager:
     def get(self, filter: dict):
         return self._model_objects.filter(**filter)
 
+    # TODO (EB): repair a categories
     def get_latest(self, view_depth):
         records = [
             model_to_dict(record)
             for record
-            in self._model_objects.all().order_by('time_create')[:view_depth]
+            in self._model_objects.all()[:view_depth]
         ]
         for record in records:
             self._date_to_iso(record)
