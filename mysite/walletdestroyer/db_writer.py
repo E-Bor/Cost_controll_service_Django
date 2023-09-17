@@ -1,14 +1,3 @@
-import enum
-
-from django.db.models import Model
-from django.forms import model_to_dict
-
-from .models import EarningModel, SpendingModel
-
-
-class RecordTypes(enum.Enum):
-    earnings: str = 'earnings'
-    spending: str = 'spending'
 
 
 class DbManager:
@@ -17,19 +6,19 @@ class DbManager:
 
         self._model_objects = model.objects
 
-    def create(self, data: dict) -> None:
+    def create(self, data: dict, user_id) -> None:
         data = self._clean_data(data)
-        self._model_objects.create(**data)
+        self._model_objects.create(user_id=user_id, **data)
 
     def get(self, filter: dict):
         return self._model_objects.filter(**filter)
 
-    # TODO (EB): repair a categories
-    def get_latest(self, view_depth):
+    def get_latest(self, view_depth, user_id):
+
         records = [
-            model_to_dict(record)
+            record.to_dict()
             for record
-            in self._model_objects.all()[:view_depth]
+            in self._model_objects.filter(user_id=user_id)[:view_depth]
         ]
         for record in records:
             self._date_to_iso(record)

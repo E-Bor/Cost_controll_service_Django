@@ -8,7 +8,7 @@ from .models import SpendingCategoriesModel
 class EarningsForm(forms.Form):
     time_create = forms.DateField(
         required=True,
-        label='Дата',
+        label='Date',
         widget=forms.DateInput(
             attrs={
                 'name': 'time_create',
@@ -18,14 +18,14 @@ class EarningsForm(forms.Form):
             }))
     cost = forms.CharField(
         required=True,
-        label='Заработок',
+        label='Earnings',
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
 
 class SpendingForm(forms.Form):
 
-    DEFAULT_CATEGORY_VALUE = 'Выберите категорию'
+    DEFAULT_CATEGORY_VALUE = 'Select category'
 
     CATEGORY_CHOICES = (
                 ('', DEFAULT_CATEGORY_VALUE),
@@ -34,7 +34,7 @@ class SpendingForm(forms.Form):
 
     time_create = forms.DateField(
         required=True,
-        label='Дата',
+        label='Date',
         widget=forms.DateInput(
             attrs={
                 'name': 'time_create',
@@ -44,13 +44,13 @@ class SpendingForm(forms.Form):
             }))
 
     description = forms.CharField(
-        label='Описание',
+        label='Description',
         required=False,
         widget=forms.Textarea(
             attrs={
                 'name': 'description',
                 'class': 'form-control',
-                'placeholder': 'Укажите на что вы потратили деньги',
+                'placeholder': 'Write what you spent the money on',
                 'rows': 3,
 
             }
@@ -59,7 +59,7 @@ class SpendingForm(forms.Form):
     )
 
     category = forms.ChoiceField(
-        label='Категория',
+        label='Category',
         required=True,
         widget=forms.Select(
             attrs={
@@ -70,7 +70,7 @@ class SpendingForm(forms.Form):
     )
     cost = forms.CharField(
         required=True,
-        label='Цена',
+        label='Cost',
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control'

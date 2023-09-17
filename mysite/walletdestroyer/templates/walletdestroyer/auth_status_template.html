@@ -1,14 +1,14 @@
 {% if is_auth %}
 <div class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-       aria-expanded="false">Имя профиля</a>
+       aria-expanded="false">{{ username }}</a>
     <ul class="dropdown-menu position-absolute">
-        <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
     </ul>
 </div>
 {% else %}
 <div class="nav-item dropdown">
-<a class="nav-link " href="{% url 'auth' %}">Войти</a>
-<a class="nav-link " href="{% url 'registration' %}">Зарегистрироваться</a>
+<a class="nav-link " href="{% url 'auth' %}">Sign in</a>
+<a class="nav-link " href="{% url 'registration' %}">Sign up</a>
     </div>
 {% endif %}

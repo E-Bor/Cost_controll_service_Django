@@ -12,9 +12,6 @@ from .db_writer import DbManager
 from .forms import EarningsForm, SpendingForm, UserRegisterForm, AuthUserForm
 
 
-# from mysite.walletdestroyer.forms import EarningsForm
-
-
 # Create your views here.
 
 
@@ -32,16 +29,17 @@ class EarningsView(LoginRequiredMixin, View):
 
     def get(self, request):
         params = {
-            'operations': self.Writer.get_latest(view_depth=5),
+            'operations': self.Writer.get_latest(view_depth=5, user_id=request.user.id),
             'form': EarningsForm,
             'table_name': EarningModel._meta.verbose_name,
-            'is_auth': request.user.is_authenticated
+            'is_auth': request.user.is_authenticated,
+            'username': request.user.username
         }
         return render(request, 'walletdestroyer/earnings.html', context=params)
 
     def post(self, request):
 
-        self.Writer.create(request.POST)
+        self.Writer.create(request.POST, request.user.id)
 
         return redirect('earnings', permanent=True)
 
@@ -53,12 +51,12 @@ class SpendingView(LoginRequiredMixin, View):
     SPENDING_CATEGORIES = SpendingCategoriesModel.objects.all()
 
     def get(self, request):
-
         params = {
-            'operations': self.Writer.get_latest(view_depth=5),
+            'operations': self.Writer.get_latest(view_depth=5, user_id=request.user.id),
             'form': SpendingForm(),
             'table_name': SpendingModel._meta.verbose_name,
-            'is_auth': request.user.is_authenticated
+            'is_auth': request.user.is_authenticated,
+            'username': request.user.username
         }
         return render(request, 'walletdestroyer/spending.html', context=params)
 
@@ -68,7 +66,7 @@ class SpendingView(LoginRequiredMixin, View):
             if data.get('category') == category.name:
                 data['category'] = category
 
-        self.Writer.create(data)
+        self.Writer.create(data, request.user.id)
 
         return redirect('spending', permanent=True)
 
@@ -83,7 +81,6 @@ class RegisterUserView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('spending')
-# qQ1234Qqqrr
 
 class AuthUserView(LoginView):
     form_class = AuthUserForm

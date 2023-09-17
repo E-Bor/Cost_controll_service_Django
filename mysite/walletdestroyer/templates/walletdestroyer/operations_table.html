@@ -4,8 +4,8 @@
         <thead>
         <tr>
             <th scope="col">$</th>
-            <th scope="col">Категория</th>
-            <th scope="col">Дата</th>
+            <th scope="col">Category</th>
+            <th scope="col">Date</th>
 
         </tr>
         </thead>
@@ -14,7 +14,7 @@
         {% for operation in operations %}
         <tr>
             <td>{{ operation.cost }}</td>
-            <td>{{ operation.category.name }}</td>
+            <td>{{ operation.category }}</td>
             <td>{{ operation.time_create }}</td>
         </tr>
         {% endfor %}
