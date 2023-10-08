@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',  # for apps optimisation
     'walletdestroyer.apps.WalletdestroyerConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

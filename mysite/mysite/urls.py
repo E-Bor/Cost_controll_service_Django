@@ -20,5 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('walletdestroyer.urls')),
-    path("__debug__/", include("debug_toolbar.urls")),  # for apps optimisation
+    path("__debug__/", include('debug_toolbar.urls')),  # for apps optimisation
+    path('api/v1/', include('walletdestroyerAPI.urls'))
 ]
