@@ -140,3 +140,10 @@ CACHES = {
 			  'LOCATION': os.path.join(BASE_DIR, 'walletdestroyer_cache')
 		  }
 }
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
