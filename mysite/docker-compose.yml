@@ -6,3 +6,9 @@ services:
       context: ./database
     ports:
       - "5432:5432"
+
+
+  walletdestroyer:
+    build: .
+    ports:
+      - "8000:8000"
