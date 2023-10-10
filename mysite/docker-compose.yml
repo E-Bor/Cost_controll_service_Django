@@ -9,7 +9,7 @@ services:
     networks:
       - my_network
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data    #saved in /var/lib/docker/volumes
 
   walletdestroyer:
     build: .
