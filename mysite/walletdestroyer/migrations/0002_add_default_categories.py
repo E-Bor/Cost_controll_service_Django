@@ -13,7 +13,7 @@ def add_types(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('walletdestroyer', '0008_earningmodel_user_id_spendingmodel_user_id'),
+        ('walletdestroyer', '0001_initial'),
     ]
 
     operations = [

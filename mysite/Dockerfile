@@ -8,5 +8,5 @@ RUN apt-get update \
     && pip install -r requirements.txt \
     && python manage.py collectstatic --no-input
 
-CMD ["python", "manage.py" ,"runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py" ,"runserver", "0.0.0.0:7000"]
 EXPOSE 8000

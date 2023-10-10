@@ -6,9 +6,23 @@ services:
       context: ./database
     ports:
       - "5432:5432"
-
+    networks:
+      - my_network
 
   walletdestroyer:
     build: .
     ports:
+      - "7000:7000"
+    networks:
+      - my_network
+
+  nginx:
+    build:
+      context: ./Nginx
+    ports:
       - "8000:8000"
+    networks:
+      - my_network
+
+networks:
+  my_network:
