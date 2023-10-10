@@ -8,6 +8,8 @@ services:
       - "5432:5432"
     networks:
       - my_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   walletdestroyer:
     build: .
@@ -15,6 +17,9 @@ services:
       - "7000:7000"
     networks:
       - my_network
+    depends_on:
+      - db
+
 
   nginx:
     build:
@@ -23,6 +28,10 @@ services:
       - "8000:8000"
     networks:
       - my_network
+    restart: "on-failure"
 
 networks:
   my_network:
+
+volumes:
+  postgres_data:
