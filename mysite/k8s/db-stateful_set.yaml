@@ -37,8 +37,3 @@ spec:
         resources:
           requests:
             storage: 1Gi
-#    volumes:
-#      - name: postgres-data
-#        hostPath:
-#          path: /home/xan/postgres_data
-#          type: DirectoryOrCreate

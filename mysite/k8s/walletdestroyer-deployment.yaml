@@ -5,7 +5,7 @@ metadata:
     service: walletdestroyer
   name: walletdestroyer
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       service: walletdestroyer
@@ -21,6 +21,4 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 7000
-              hostPort: 7000
-#              protocol: TCP
       restartPolicy: Always
