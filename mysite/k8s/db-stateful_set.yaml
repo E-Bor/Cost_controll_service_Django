@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    network/mysite-my-network: "true"
+    service: db
+  name: db
+spec:
+  serviceName: "db"
+  replicas: 1
+  selector:
+    matchLabels:
+      service: db
+  template:
+    metadata:
+      labels:
+        network/mysite-my-network: "true"
+        service: db
+    spec:
+      containers:
+        - image: mysite-db:latest
+          name: db
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+              hostPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+      restartPolicy: Always
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+#    volumes:
+#      - name: postgres-data
+#        hostPath:
+#          path: /home/xan/postgres_data
+#          type: DirectoryOrCreate

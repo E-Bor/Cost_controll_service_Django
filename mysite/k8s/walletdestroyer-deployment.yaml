@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: walletdestroyer
+  name: walletdestroyer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: walletdestroyer
+  template:
+    metadata:
+      labels:
+        network/mysite-my-network: "true"
+        service: walletdestroyer
+    spec:
+      containers:
+        - image: mysite-walletdestroyer:latest
+          name: walletdestroyer
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 7000
+              hostPort: 7000
+#              protocol: TCP
+      restartPolicy: Always

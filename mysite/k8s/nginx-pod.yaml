@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    network/mysite-my-network: "true"
+    service: nginx
+  name: nginx
+spec:
+  containers:
+    - image: mysite-nginx:latest
+      name: nginx
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8000
+          hostPort: 80
+          protocol: TCP
+  restartPolicy: OnFailure

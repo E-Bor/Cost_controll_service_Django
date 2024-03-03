@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: walletdestroyer
+  name: walletdestroyer
+spec:
+  ports:
+    - name: "7000"
+      port: 7000
+      targetPort: 7000
+  selector:
+    service: walletdestroyer

@@ -90,7 +90,11 @@ DATABASES = {
 }
 
 CSRF_COOKIE_SECURE = False
-CSRF_TRUSTED_ORIGINS = ['http://*', 'https://*', 'http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS = [
+    'http://*',
+    'https://*',
+    'http://192.168.59.100:80',  # this is a local minikube ip
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
